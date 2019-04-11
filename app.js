@@ -56,28 +56,32 @@ App({
     });
     //  获取接口和后台权限
     WXAPI.vipLevel().then(res => {
-      that.globalData.vipLevel = res.data
+      that.globalData.vipLevel = 0
+      if (res.code == 1000) {
+        that.globalData.vipLevel = res.data
+      }
     })
     //  获取商城名称
     WXAPI.queryConfig({
       key: 'mallName'
     }).then(function(res) {
-      if (res.code == 0) {
+      if (res.code == 1000) {
         wx.setStorageSync('mallName', res.data.value);
       }
     })
-    WXAPI.scoreRules({
-      code: 'goodReputation'
+    WXAPI.queryConfig({
+      key: 'goodReputation'
     }).then(function(res) {
-      if (res.code == 0) {        
-        that.globalData.order_reputation_score = res.data[0].score;
+      if (res.code == 1000) {
+        // 订单好评得积分        
+        that.globalData.order_reputation_score = res.data.value
       }
     })
     // 获取充值的最低金额
     WXAPI.queryConfig({
       key: 'recharge_amount_min'
     }).then(function(res) {
-      if (res.code == 0) {
+      if (res.code == 1000) {
         that.globalData.recharge_amount_min = res.data.value;
       }
     })

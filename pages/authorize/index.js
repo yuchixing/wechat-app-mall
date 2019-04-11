@@ -83,7 +83,7 @@ Page({
     const token = wx.getStorageSync('token');
     if (token) {
       WXAPI.checkToken(token).then(function(res) {
-        if (res.code != 0) {
+        if (res.code != 1000) {
           wx.removeStorageSync('token')
           that.login();
         } else {
@@ -97,12 +97,12 @@ Page({
     wx.login({
       success: function(res) {
         WXAPI.login(res.code).then(function(res) {
-          if (res.code == 10000) {
+          if (res.code == 1000) {
             // 去注册
             that.registerUser();
             return;
           }
-          if (res.code != 0) {
+          if (res.code != 1000) {
             // 登录错误
             wx.hideLoading();
             wx.showModal({

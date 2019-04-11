@@ -116,7 +116,7 @@ Page({
         icon: '/images/fl.png',
         name: "全部"
       }];
-      if (res.code == 0) {
+      if (res.code == 1000) {
         categories = categories.concat(res.data)
       }
       const _n = Math.ceil(categories.length / 2)
@@ -131,7 +131,7 @@ Page({
     WXAPI.goods({
       recommendStatus: 1
     }).then(res => {
-      if (res.code === 0){
+      if (res.code === 1000){
         that.setData({
           goodsRecommend: res.data
         })
